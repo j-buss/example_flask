@@ -117,6 +117,7 @@ config_*.py
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/misc.xml
 
 # Generated files
 .idea/**/contentModel.xml
