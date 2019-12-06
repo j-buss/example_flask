@@ -1,6 +1,20 @@
-# Part 1: Creating Your First Flask App
+# Deploying Flask Apps to GCP
+## Part 1: Creating Your First Flask App
 
-This post is about running a hello world app in Flask and then in Google Cloud Platform's tool App Engine.
+There are many Flask tutorials online that describe the details of using the lightweight Python framework.pyi
+With this series I do not intend to recreate the great jobs that have been done.
+I simply wanted a quick (2 or 3) post series to get up and running with deploying Flask to
+GCP App Engine and using data from Big Query.
+
+### Resources:
+1. [The Flask Mega Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+by Miguel Grinberg is a phenominal tutorial for Flask. Not just the basics, but some pretty
+in-depth concepts.
+- In a related note there is a great podcast interview with Miguel on
+[Talk Python to Me](https://talkpython.fm/) where he discusses [Building Flask-based Web Apps](https://talkpython.fm/episodes/show/48/building-flask-based-web-apps)
+2. [Your First Flask App](https://hackersandslackers.com/your-first-flask-application/) is a series of posts which describe many facets of Flask.
+The depth does not go to the step-by-step that Miguel does, however contains in his tutorial, but is very good. 
+3. GCP Examples
 
 Within the post
 Create the 5 line hello World app.py
