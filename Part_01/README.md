@@ -16,7 +16,7 @@ Install Flask:
 ```bash
 pip install flask
 ```
-Create the "5-line minimum" app.py file:  
+Create the "5-line minimum" main.py file:  
 ```python
 from flask import Flask
 app = Flask(__name__)
@@ -25,28 +25,62 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 ```
-That file is the only code we need. However we need to 
+This file is the only code needed. 
+flask is a script...so we will execute it with a simple `flask run` command. 
+However we need to set an environment variable first.
  ```bash
-export FLASK_APP=app.py
+export FLASK_APP=main.py
+```
+Now we are ready to run it:
+```bash
 flask run
-* Running on http://127.0.0.1:5000/
  ```
-Run the app:
+If all went well we should get a message like the following:
 
- - deploy to gcp
+```bash
+ * Serving Flask app "main.py"
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [07/Dec/2019 07:22:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Dec/2019 07:22:08] "GET /favicon.ico HTTP/1.1" 404 -
+```
+##INSERT PICTURE HERE
+
+### 2. Run the app in GCP:
+
+- deploy to gcp
     rename app.py to main.py
     - without a module named main it will error out....
     - cp app.py as main.py
+- Change the code a little...
+```python
+from flask import Flask
+app = Flask(__name__)
 
-    create the app.yaml file
-    ```python
-    runtime: python37
+@app.route("/")
+def hello():
+    return "Hello World!"
+if __name__ == '__main__':
+    app.run(port=8080)
 
-    ```
-    gcloud config set project [PROJECT_NAME]
-    enable cloud build api
-
-    gcloud app deploy
+```
+create the app.yaml file
+```python
+runtime: python37
+entrypoint: gunicorn -b :$PORT main:app
+```
+```bash
+gcloud config set project [PROJECT_NAME]
+```
+enable cloud build api
+```bash
+gcloud app deploy
+```
+If it went well we should receive the following...
+#### INSERT PICTURE AND RETURN MESSAGE
 ### Resources:
 #### Tutorials
 - [Flask Mega Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
