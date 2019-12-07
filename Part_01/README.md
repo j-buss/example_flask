@@ -1,30 +1,38 @@
-# Deploying Flask Apps to GCP
-## Part 1: Creating Your First Flask App
+# Deploying Flask Apps into Google Cloud Platform
 
 There are many Flask tutorials online that describe the details of using the lightweight Python framework.pyi
 With this series I do not intend to recreate the great jobs that have been done.
 I simply wanted a quick (2 or 3) post series to get up and running with deploying Flask to
 GCP App Engine and using data from Big Query.
 
-### Resources:
-1. [The Flask Mega Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
-by Miguel Grinberg is a phenominal tutorial for Flask. Not just the basics, but some pretty
-in-depth concepts.
-- In a related note there is a great podcast interview with Miguel on
-[Talk Python to Me](https://talkpython.fm/) where he discusses [Building Flask-based Web Apps](https://talkpython.fm/episodes/show/48/building-flask-based-web-apps)
-2. [Your First Flask App](https://hackersandslackers.com/your-first-flask-application/) is a series of posts which describe many facets of Flask.
-The depth does not go to the step-by-step that Miguel does, however contains in his tutorial, but is very good. 
-3. GCP Examples
 
-Within the post
-Create the 5 line hello World app.py
- - Run from command line
- ```python
-    export FLASK_APP=app.py
-    flask run
-    * Running on http://127.0.0.1:5000/
+## Part 1: Creating Your First Flask App
+
+Let's take a simple Flask app and make certain that we can deploy it to GCP. Essentially we will take the "5-line minimum" 
+and add a few other items to be able to deploy it to GCP App Engine.
+
+### 1. Minimum app tested locally:
+Install Flask:
+```bash
+pip install flask
+```
+Create the "5-line minimum" app.py file:  
+```python
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+```
+That file is the only code we need. However we need to 
+ ```bash
+export FLASK_APP=app.py
+flask run
+* Running on http://127.0.0.1:5000/
  ```
- https://flask.palletsprojects.com/en/1.1.x/quickstart/
+Run the app:
+
  - deploy to gcp
     rename app.py to main.py
     - without a module named main it will error out....
@@ -39,4 +47,19 @@ Create the 5 line hello World app.py
     enable cloud build api
 
     gcloud app deploy
- -
+### Resources:
+#### Tutorials
+- [Flask Mega Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+ : The Flask Tutorial Gold Standard. In a clear and consistent format it walks you through all the basics and well into the intermediate range.
+ Not only that, but the tutorial is a delight to work through. 
+ The author Miguel Grinberg writes in a way that it is a pleasure to follow along. 
+ His love of Flask and Python are evident.
+- [Your First Flask App](https://hackersandslackers.com/your-first-flask-application/) is a series of posts which describe many facets of Flask.
+The series includes blueprints, Jinja and SQLAlchemy. It is not intended to be a step-by-step tutorial, but instead describes the concepts in a very 
+conversational way.
+- [Deploying a Python Flask Web Application to App Engine Flexible](https://codelabs.developers.google.com/codelabs/cloud-vision-app-engine/index.html?index=..%2F..index#0)
+is a Google Cloud Codelabs walk-through describing each of the steps to deploy a vision app from Google's Github repository: 
+[python-docs-sample](https://github.com/GoogleCloudPlatform/python-docs-samples) 
+
+#### Podcast:
+- [Building Flask-based Web Apps](https://talkpython.fm/episodes/show/48/building-flask-based-web-apps) is a podcast interview on [Talk Python to Me]()
