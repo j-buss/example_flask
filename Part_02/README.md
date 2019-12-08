@@ -4,12 +4,24 @@ There are many Flask tutorials online that describe the details of using the lig
 getting a minimal Flask app deployed to Google Cloud Platform and using data from BigQuery.
 
 ## Part 2: Read BigQuery
-
 Let's take our simple Flask app from the last post and add in some database access to BigQuery. Before we have to deal with keys and passwords we will use one of the public 
 datasets that is accessible to all.
 
 ### 1. Add in the BigQuery Hooks:
+Install BigQuery library
+```
+pip install google-cloud-bigquery
+```
+Update requirements.txt file
+```text
+Flask==1.1.1
+google-cloud-bigquery==1.22.0
+```
+Change the code. There is a default url and a results page.
+When you navigate to the default url a query will run...
 ### 2. Test it locally
+
+
 ### 3. Test it on GCP
 
 ### Resources:

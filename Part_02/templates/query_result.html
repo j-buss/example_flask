@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Query Result</title>
+
+<table>
+    <tr>
+        <th>State</th>
+        <th>County</th>
+        <th>Pop. (Millions)</th>
+        <th>Male Pop. (Millions)</th>
+        <th>Female Pop. (Millions)</th>
+        <th>Median Age</th>
+        <th>Median Income</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+        <td>{{ result[0] }}</td>
+        <td>{{ result[1] }}</td>
+        <td>{{ result[2] }}</td>
+        <td>{{ result[3] }}</td>
+        <td>{{ result[4] }}</td>
+        <td>{{ result[5] }}</td>
+        <td>{{ result[6] }}</td>
+    </tr>
+    {% endfor %}
+</table>
