@@ -1,11 +1,11 @@
-from flask import Flask
-
+import flask
 from google.cloud import bigquery
 bigquery_client = bigquery.Client()
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
-def bq_query():
+@app.route("/")
+def main():
     query_job = bigquery_client.query(
         """
         SELECT 
@@ -14,14 +14,26 @@ def bq_query():
           `bigquery-public-data.census_utility.fips_codes_all`
         """
     )
-    return query_job.result()
+    return flask.render_template("query_result.html", results=query_job.result())
 
-@app.route("/")
-def main():
-    res = bq_query()
-    for row in res:
-        output = "Record Count: " + str(row[0])
-    return output
+@app.route("/results")
+def results():
+    project_id = flask.request.args.get("project_id")
+    job_id = flask.request.args.get("job_id")
+    location = flask.request.args.get("location")
+
+    query_job = bigquery_client.get_job(
+        job_id,
+        project=project_id,
+        location=location,
+    )
+    try:
+        # Set a timeout because queries could take longer than one minute.
+        results = query_job.result(timeout=30)
+    except concurrent.futures.TimeoutError:
+        return flask.render_template("timeout.html", job_id=query_job.job_id)
+
+    return flask.render_template("query_result.html", results=results)
 
 if __name__ == "__main__":
     app.run(port=8080)

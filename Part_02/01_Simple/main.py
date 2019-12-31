@@ -1,11 +1,12 @@
-from flask import Flask
+import flask
 
 from google.cloud import bigquery
 bigquery_client = bigquery.Client()
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
-def bq_query():
+@app.route("/")
+def main():
     query_job = bigquery_client.query(
         """
         SELECT 
@@ -14,11 +15,7 @@ def bq_query():
           `bigquery-public-data.census_utility.fips_codes_all`
         """
     )
-    return query_job.result()
-
-@app.route("/")
-def main():
-    res = bq_query()
+    res = query_job.result()
     for row in res:
         output = "Record Count: " + str(row[0])
     return output

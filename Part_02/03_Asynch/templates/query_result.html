@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<table>
+    <thead>
+        <tr>
+            <th>Record Count</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+    <tr>
+        <td>{{ result[0] }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

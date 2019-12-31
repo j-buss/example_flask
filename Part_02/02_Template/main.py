@@ -1,11 +1,12 @@
-from flask import Flask
+import flask
 
 from google.cloud import bigquery
 bigquery_client = bigquery.Client()
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
-def bq_query():
+@app.route("/")
+def main():
     query_job = bigquery_client.query(
         """
         SELECT 
@@ -14,7 +15,7 @@ def bq_query():
           `bigquery-public-data.census_utility.fips_codes_all`
         """
     )
-    return flask.render_template("query_result.html", results=query_job.results())
+    return flask.render_template("query_result.html", results=query_job.result())
 
 if __name__ == "__main__":
     app.run(port=8080)
