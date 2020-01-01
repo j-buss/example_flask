@@ -15,7 +15,14 @@ def main():
           `bigquery-public-data.census_utility.fips_codes_all`
         """
     )
-    return flask.render_template("query_result.html", results=query_job.result())
+    return flask.redirect(
+        flask.url_for(
+            "results",
+            project_id=query_job.project,
+            job_id=query_job.job_id,
+            location=query_job.location,
+        )
+    )
 
 @app.route("/results")
 def results():
