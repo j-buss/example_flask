@@ -7,6 +7,7 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def main():
+    # Define query_job and query object
     query_job = bigquery_client.query(
         """
         SELECT 
@@ -15,6 +16,8 @@ def main():
           `bigquery-public-data.census_utility.fips_codes_all`
         """
     )
+
+    # Handle query_job result by rendering with a template
     return flask.render_template("query_result.html", results=query_job.result())
 
 if __name__ == "__main__":
